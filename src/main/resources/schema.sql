@@ -1,0 +1,26 @@
+
+DROP TABLE IF EXISTS tickets;
+DROP TABLE IF EXISTS events;
+DROP TABLE IF EXISTS users;
+CREATE TABLE IF NOT EXISTS users (
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS events (
+    id BIGSERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    date_time TIMESTAMP NOT NULL
+);
+
+
+CREATE TABLE IF NOT EXISTS tickets (
+    id BIGSERIAL PRIMARY KEY,
+    event_id BIGINT NOT NULL,
+    user_id BIGINT NOT NULL,
+    category INT NOT NULL,
+    place INT NOT NULL,
+    CONSTRAINT fk_event FOREIGN KEY (event_id) REFERENCES events (id),
+    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users (id)
+);
